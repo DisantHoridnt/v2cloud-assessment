@@ -19,6 +19,7 @@ Please follow the instructions in each of the steps. With each instruction, it w
 
 - We love docker and use docker everyday in our development.
   - **Objective:** Write a docker-compose file for this project (we'll run this project with `docker compose up`)
+  - docker compose file created.
 
 - What is a software development without bugs and errors right ?
   - **Objective:** Run `docker compose up` and see if there is any errors with existing configuration in the project and fix any issues.
