@@ -223,15 +223,6 @@ const VMCard = ({ vm, onEdit }) => {
                 </div>
             </div>
 
-            {vm.ssh_key && (
-                <div className="mb-4 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
-                    <span className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">SSH Key</span>
-                    <pre className="text-xs overflow-x-auto whitespace-pre-wrap break-words">
-                        {vm.ssh_key}
-                    </pre>
-                </div>
-            )}
-
             <div className="border-t border-gray-100 dark:border-gray-700 pt-4 flex justify-between items-center">
                 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">SSH Key</span>
                 <button 
