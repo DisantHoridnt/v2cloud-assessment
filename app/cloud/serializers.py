@@ -53,6 +53,11 @@ class VmSerializer(serializers.ModelSerializer):
                 'required': True,
                 'min_value': 1,
                 'max_value': 64
+            },
+            'ssh_key': {
+                'required': False,
+                'allow_null': True,
+                'max_length': 4096  # Reasonable limit for SSH keys
             }
         }
 
@@ -63,6 +68,20 @@ class VmSerializer(serializers.ModelSerializer):
         if not value or value.strip() == '':
             raise serializers.ValidationError("VM name cannot be empty.")
         return value.strip()
+
+    def validate_ssh_key(self, value):
+        """
+        Validate SSH key if provided
+        """
+        if value and not value.strip():
+            raise serializers.ValidationError("SSH key cannot be an empty string.")
+        
+        # Optional: Add more specific SSH key validation if needed
+        # For example, check for basic SSH key format
+        if value and not (value.startswith('ssh-') or value.startswith('-----BEGIN OPENSSH PRIVATE KEY-----')):
+            raise serializers.ValidationError("Invalid SSH key format.")
+        
+        return value
 
     def validate(self, data):
         """

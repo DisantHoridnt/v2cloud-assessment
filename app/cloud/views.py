@@ -33,6 +33,74 @@ class VmViewSet(viewsets.ModelViewSet):
     serializer_class = VmSerializer
     # permission_classes = [IsAuthenticated]  # Uncomment if authentication is needed
 
+    def update(self, request, *args, **kwargs):
+        try:
+            # Fetch the existing instance
+            instance = self.get_object()
+            
+            # Prepare the data for update
+            data = request.data.copy()
+            
+            # Ensure all required fields are present
+            if 'name' not in data:
+                data['name'] = instance.name
+            if 'cpus' not in data:
+                data['cpus'] = instance.cpus
+            if 'ram' not in data:
+                data['ram'] = instance.ram
+            if 'server_id' not in data and instance.server:
+                data['server_id'] = instance.server.id
+
+            # Use the serializer for validation
+            serializer = self.get_serializer(instance, data=data, partial=True)
+            
+            # Validate the data
+            serializer.is_valid(raise_exception=True)
+            
+            # Save the updated instance
+            self.perform_update(serializer)
+            
+            return Response(serializer.data)
+        except Exception as e:
+            return Response(
+                {'detail': str(e)}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    def partial_update(self, request, *args, **kwargs):
+        try:
+            # Fetch the existing instance
+            instance = self.get_object()
+            
+            # Prepare the data for update
+            data = request.data.copy()
+            
+            # Ensure all required fields are present
+            if 'name' not in data:
+                data['name'] = instance.name
+            if 'cpus' not in data:
+                data['cpus'] = instance.cpus
+            if 'ram' not in data:
+                data['ram'] = instance.ram
+            if 'server_id' not in data and instance.server:
+                data['server_id'] = instance.server.id
+
+            # Use the serializer for validation
+            serializer = self.get_serializer(instance, data=data, partial=True)
+            
+            # Validate the data
+            serializer.is_valid(raise_exception=True)
+            
+            # Save the updated instance
+            self.perform_update(serializer)
+            
+            return Response(serializer.data)
+        except Exception as e:
+            return Response(
+                {'detail': str(e)}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
     def create(self, request, *args, **kwargs):
         try:
             # Validate server exists
