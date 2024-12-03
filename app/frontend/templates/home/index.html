@@ -1,24 +1,26 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V2Cloud VM Management</title>
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
 </head>
-
-<body>
-	<header style="display: flex; justify-content: center;">
-		<div id="v2-cloud-icon" style="display: flex; justify-content: center; flex-direction: column;">
-			<img src="https://dash.v2cloud.com/static/frontend/images/v2.png?v=0.10.43-6" alt="" style="height: 100px">
-			<div style="text-align: center;">V2 Cloud</div>
-		</div>
-	</header>
-	<main>
-		<div id="react-component"></div>
-	</main>
-	<script src="{% static 'bundle.js' %}"></script>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-sm mb-8">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-center items-center">
+            <div class="flex flex-col items-center">
+                <img src="https://dash.v2cloud.com/static/frontend/images/v2.png?v=0.10.43-6" 
+                     alt="V2Cloud Logo" 
+                     class="h-16 mb-2">
+                <div class="text-xl font-semibold text-gray-800">V2 Cloud</div>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="app"></div>
+    </main>
+    <script src="{% static 'bundle.js' %}"></script>
 </body>
-
 </html>
