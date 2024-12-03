@@ -35,3 +35,6 @@ docker-compose up --build
 - **Frontend**: React
 - **Styling**: Tailwind CSS
 - **Containerization**: Docker
+
+## Commit Tree
+![Commit Tree Visualization](images/commitTree.png)
