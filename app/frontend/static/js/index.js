@@ -1,28 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
-// Theme Toggle Component
-const ThemeToggle = () => {
-    const [isDark, setIsDark] = useState(false);
-
-    useEffect(() => {
-        if (isDark) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, [isDark]);
-
-    return (
-        <button
-            onClick={() => setIsDark(!isDark)}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white"
-        >
-            {isDark ? '🌞' : '🌙'}
-        </button>
-    );
-};
-
 // Search and Filter Component
 const Controls = ({ onSearch, onFilter, onSort, activeFilter, activeSort }) => {
     return (
@@ -279,11 +257,6 @@ const VMGrid = () => {
         </div>
     );
 };
-
-// Initialize Theme Toggle
-const themeContainer = document.getElementById('theme-toggle');
-const themeRoot = createRoot(themeContainer);
-themeRoot.render(<ThemeToggle />);
 
 // Initialize Main App
 const container = document.getElementById('app');
