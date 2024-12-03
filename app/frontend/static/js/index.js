@@ -373,20 +373,7 @@ const VMGrid = () => {
                 </div>
             </div>
 
-            <Controls
-                onSearch={setSearchTerm}
-                onFilter={setActiveFilter}
-                onSort={setActiveSort}
-                activeFilter={activeFilter}
-                activeSort={activeSort}
-            />
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredAndSortedVMs.map((vm) => (
-                    <VMCard key={vm.id} vm={vm} onEdit={fetchInitialData} />
-                ))}
-            </div>
-
+            {/* VM Creation Modal - Moved to the top of the page */}
             {isCreateModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-96 shadow-xl">
@@ -482,6 +469,20 @@ const VMGrid = () => {
                     </div>
                 </div>
             )}
+
+            <Controls
+                onSearch={setSearchTerm}
+                onFilter={setActiveFilter}
+                onSort={setActiveSort}
+                activeFilter={activeFilter}
+                activeSort={activeSort}
+            />
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredAndSortedVMs.map((vm) => (
+                    <VMCard key={vm.id} vm={vm} onEdit={fetchInitialData} />
+                ))}
+            </div>
         </div>
     );
 };
