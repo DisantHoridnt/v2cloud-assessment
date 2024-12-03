@@ -1,8 +1,14 @@
 const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: "./frontend/static/js/index.js",
+    entry: {
+        main: [
+            "./frontend/static/js/index.js",
+            "./frontend/static/css/tailwind.css"
+        ]
+    },
     output: { 
         filename: "bundle.js",
         path: path.resolve("frontend/static"),
@@ -32,15 +38,22 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader'],
+                use: [
+                    MiniCssExtractPlugin.loader, 
+                    'css-loader', 
+                    'postcss-loader'
+                ],
             }
         ]
     },
     plugins: [
         new BundleTracker({filename: './webpack-stats.json'}),
+        new MiniCssExtractPlugin({
+            filename: 'css/tailwind.css'
+        })
     ],
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.css']
     },
     devServer: {
         static: {
@@ -51,4 +64,4 @@ module.exports = {
             "Access-Control-Allow-Origin": "*",
         }
     }
-}
+};

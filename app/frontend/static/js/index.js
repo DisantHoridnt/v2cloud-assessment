@@ -168,152 +168,110 @@ const VMCard = ({ vm, onEdit }) => {
         }
     };
 
-    // Determine server color
-    const getServerColor = () => {
-        if (vm.server?.name.toLowerCase().includes('montreal')) {
-            return {
-                bg: 'bg-blue-50 dark:bg-blue-900/30',
-                border: 'border-blue-200 dark:border-blue-700',
-                text: 'text-blue-800 dark:text-blue-300'
-            };
+    function getServerColorClass(server) {
+        switch(server.toLowerCase()) {
+            case 'montreal':
+                return 'server-montreal';
+            case 'washington':
+                return 'server-washington';
+            case 'singapore':
+                return 'server-singapore';
+            default:
+                return 'bg-gray-100 dark:bg-gray-800';
         }
-        if (vm.server?.name.toLowerCase().includes('washington')) {
-            return {
-                bg: 'bg-green-50 dark:bg-green-900/30',
-                border: 'border-green-200 dark:border-green-700',
-                text: 'text-green-800 dark:text-green-300'
-            };
-        }
-        return {
-            bg: 'bg-purple-50 dark:bg-purple-900/30',
-            border: 'border-purple-200 dark:border-purple-700',
-            text: 'text-purple-800 dark:text-purple-300'
-        };
-    };
+    }
 
-    const serverColors = getServerColor();
+    const serverColorClass = getServerColorClass(vm.server);
 
     return (
-        <div className={`
-            relative group
-            ${serverColors.bg}
-            border-2 ${serverColors.border}
-            rounded-xl overflow-hidden
-            transition-all duration-300
-            hover:shadow-lg hover:scale-[1.02]
-        `}>
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r 
-                from-blue-500 via-purple-500 to-pink-500 
-                opacity-0 group-hover:opacity-100 
-                transition-opacity duration-300">
+        <div 
+            className={`
+                vm-card 
+                ${serverColorClass} 
+                p-4 
+                rounded-lg 
+                shadow-md 
+                hover:shadow-lg 
+                transition-all 
+                duration-300 
+                ease-in-out 
+                transform 
+                hover:-translate-y-1 
+                hover:scale-105
+            `}
+        >
+            <div className="flex justify-between items-center mb-2">
+                {isEditing ? (
+                    <input
+                        type="text"
+                        value={editedVm.name}
+                        onChange={(e) => setEditedVm({...editedVm, name: e.target.value})}
+                        className="text-lg font-semibold px-2 py-1 border rounded dark:bg-gray-700 dark:text-white"
+                    />
+                ) : (
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                        {vm.name}
+                    </h3>
+                )}
+                <span 
+                    className={`
+                        px-2 
+                        py-1 
+                        rounded-full 
+                        text-xs 
+                        font-medium 
+                        ${vm.active 
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' 
+                            : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
+                        }
+                    `}
+                >
+                    {vm.active ? 'Active' : 'Inactive'}
+                </span>
             </div>
-            
-            <div className="p-6 relative z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm">
-                <div className="flex justify-between items-start mb-4">
-                    <div>
-                        {isEditing ? (
+            <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                <p>Server: {vm.server}</p>
+                <p>IP: {vm.ip}</p>
+                <p>CPU: {vm.cpus}%</p>
+                <p>RAM: {vm.ram} GB</p>
+            </div>
+            <div className="mt-auto border-t border-gray-100 dark:border-gray-700 pt-4">
+                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">SSH Key</span>
+                <div className="mt-1">
+                    {isEditing ? (
+                        <div className="flex items-center space-x-2">
                             <input
                                 type="text"
-                                value={editedVm.name}
-                                onChange={(e) => setEditedVm({...editedVm, name: e.target.value})}
-                                className="text-lg font-semibold px-2 py-1 border rounded dark:bg-gray-700 dark:text-white"
+                                value={editedVm.ssh_key || ''}
+                                onChange={(e) => setEditedVm({...editedVm, ssh_key: e.target.value})}
+                                className="flex-1 px-2 py-1 text-xs font-mono border rounded dark:bg-gray-700 dark:text-white"
+                                placeholder="Enter SSH key"
                             />
-                        ) : (
-                            <h3 className={`text-lg font-semibold ${serverColors.text}`}>{vm.name}</h3>
-                        )}
-                        <span className={`
-                            inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                            ${serverColors.bg} ${serverColors.text} mt-1
-                        `}>
-                            {vm.server?.name || 'Unknown'}
-                        </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <span className={`
-                            inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                            ${vm.active 
-                                ? 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100' 
-                                : 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100'
-                            }
-                        `}>
-                            {vm.active ? 'Active' : 'Inactive'}
-                        </span>
-                        <button
-                            onClick={() => setIsEditing(!isEditing)}
-                            className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                            {isEditing ? '✕' : '✎'}
-                        </button>
-                    </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="flex flex-col">
-                        <span className="text-sm font-medium text-gray-500 dark:text-gray-400">CPUs</span>
-                        {isEditing ? (
-                            <input
-                                type="number"
-                                value={editedVm.cpus}
-                                onChange={(e) => setEditedVm({...editedVm, cpus: parseInt(e.target.value)})}
-                                className="mt-1 px-2 py-1 border rounded dark:bg-gray-700 dark:text-white"
-                            />
-                        ) : (
-                            <span className={`mt-1 text-lg font-semibold ${serverColors.text}`}>{vm.cpus}</span>
-                        )}
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="text-sm font-medium text-gray-500 dark:text-gray-400">RAM</span>
-                        {isEditing ? (
-                            <input
-                                type="number"
-                                value={editedVm.ram}
-                                onChange={(e) => setEditedVm({...editedVm, ram: parseInt(e.target.value)})}
-                                className="mt-1 px-2 py-1 border rounded dark:bg-gray-700 dark:text-white"
-                            />
-                        ) : (
-                            <span className={`mt-1 text-lg font-semibold ${serverColors.text}`}>{vm.ram} GB</span>
-                        )}
-                    </div>
-                </div>
-
-                <div className="mt-auto border-t border-gray-100 dark:border-gray-700 pt-4">
-                    <span className="text-sm font-medium text-gray-500 dark:text-gray-400">SSH Key</span>
-                    <div className="mt-1">
-                        {isEditing ? (
+                            <button
+                                onClick={handleSave}
+                                className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    ) : (
+                        vm.ssh_key ? (
                             <div className="flex items-center space-x-2">
-                                <input
-                                    type="text"
-                                    value={editedVm.ssh_key || ''}
-                                    onChange={(e) => setEditedVm({...editedVm, ssh_key: e.target.value})}
-                                    className="flex-1 px-2 py-1 text-xs font-mono border rounded dark:bg-gray-700 dark:text-white"
-                                    placeholder="Enter SSH key"
-                                />
-                                <button
-                                    onClick={handleSave}
-                                    className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                <code className="text-xs bg-gray-50 dark:bg-gray-900 px-2 py-1 rounded font-mono text-gray-600 dark:text-gray-300 flex-1 truncate">
+                                    {vm.ssh_key}
+                                </code>
+                                <button 
+                                    onClick={() => navigator.clipboard.writeText(vm.ssh_key)}
+                                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                                    title="Copy SSH Key"
                                 >
-                                    Save
+                                    📋
                                 </button>
                             </div>
                         ) : (
-                            vm.ssh_key ? (
-                                <div className="flex items-center space-x-2">
-                                    <code className="text-xs bg-gray-50 dark:bg-gray-900 px-2 py-1 rounded font-mono text-gray-600 dark:text-gray-300 flex-1 truncate">
-                                        {vm.ssh_key}
-                                    </code>
-                                    <button 
-                                        onClick={() => navigator.clipboard.writeText(vm.ssh_key)}
-                                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
-                                        title="Copy SSH Key"
-                                    >
-                                        📋
-                                    </button>
-                                </div>
-                            ) : (
-                                <span className="text-sm text-gray-400 dark:text-gray-500">No key configured</span>
-                            )
-                        )}
-                    </div>
+                            <span className="text-sm text-gray-400 dark:text-gray-500">No key configured</span>
+                        )
+                    )}
                 </div>
             </div>
         </div>
@@ -332,14 +290,43 @@ const VMGrid = () => {
     const fetchVMs = useCallback(async () => {
         try {
             setLoading(true);
-            const response = await fetch('/api/vms/');
+            const response = await fetch('/api/vms/', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('Response status:', response.status);
+            
             if (!response.ok) {
-                throw new Error('Failed to fetch VMs');
+                const errorText = await response.text();
+                console.error('Error response:', errorText);
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
             }
+            
             const data = await response.json();
-            setVms(data);
+            console.log('Fetched VMs:', data);
+            
+            if (!Array.isArray(data)) {
+                throw new Error('Expected an array of VMs');
+            }
+            
+            // Normalize the data to ensure all expected fields are present
+            const normalizedVMs = data.map(vm => ({
+                id: vm.id,
+                name: vm.name || 'Unnamed VM',
+                cpus: vm.cpus || 0,
+                ram: vm.ram || 0,
+                server: vm.server?.name || 'Unknown Server',
+                active: vm.active || false,
+                ssh_key: vm.ssh_key || '',
+                ip: vm.ip || 'N/A'
+            }));
+            
+            setVms(normalizedVMs);
         } catch (err) {
-            handleApiError(err, setError);
+            console.error('Fetch VMs error:', err);
+            setError(err.message || 'Failed to fetch VMs');
         } finally {
             setLoading(false);
         }

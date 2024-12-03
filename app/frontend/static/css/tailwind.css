@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles */
+body {
+  @apply transition-colors duration-300 ease-in-out;
+}
+
+/* VM Card Specific Styles */
+.vm-card {
+  @apply relative overflow-hidden rounded-lg shadow-vm-card transition-all duration-300 ease-in-out;
+}
+
+.vm-card:hover {
+  @apply shadow-vm-card-hover scale-105;
+}
+
+/* Server-specific color variations */
+.server-montreal {
+  @apply bg-server-montreal-light dark:bg-server-montreal-dark;
+}
+
+.server-washington {
+  @apply bg-server-washington-light dark:bg-server-washington-dark;
+}
+
+.server-singapore {
+  @apply bg-server-singapore-light dark:bg-server-singapore-dark;
+}
+
+/* Dark mode specific styles */
+.dark {
+  @apply bg-gray-900 text-gray-100;
+}
