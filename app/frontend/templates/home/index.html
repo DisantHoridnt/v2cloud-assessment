@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<header style="display: flex; justify-content: center;">
+		<div id="v2-cloud-icon" style="display: flex; justify-content: center; flex-direction: column;">
+			<img src="https://dash.v2cloud.com/static/frontend/images/v2.png?v=0.10.43-6" alt="" style="height: 100px">
+			<div style="text-align: center;">V2 Cloud</div>
+		</div>
+	</header>
+	<main>
+		<div id="react-component"></div>
+	</main>
+	<script src="{% static 'bundle.js' %}"></script>
+</body>
+
+</html>

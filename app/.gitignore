@@ -1,0 +1,11 @@
+.vscode
+htmlcov
+.coverage
+venv
+.idea
+*.pyc
+*~
+node_modules
+webpack-stats.json
+frontend/static/**/*__.js.*
+frontend/static/**/*__.js
