@@ -1,32 +1,48 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="V2Cloud VM Management Dashboard - Manage your virtual machines efficiently">
+    <meta name="theme-color" content="#1e293b">
     <title>V2Cloud VM Management</title>
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'css/tailwind.css' %}" rel="stylesheet">
+    <link rel="icon" href="https://dash.v2cloud.com/static/frontend/images/v2.png?v=0.10.43-6" type="image/png">
 </head>
-<body class="bg-gray-50 dark:bg-gray-900">
-    <div class="min-h-screen flex flex-col">
-        <nav class="bg-white dark:bg-gray-800 shadow-sm">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16">
-                    <div class="flex items-center">
-                        <img src="https://dash.v2cloud.com/static/frontend/images/v2.png?v=0.10.43-6" 
-                             alt="V2Cloud Logo" 
-                             class="h-8 w-auto">
-                        <span class="ml-3 text-xl font-semibold text-gray-900 dark:text-white">V2Cloud</span>
+<body class="h-full bg-gray-50 dark:bg-gray-900 antialiased text-gray-900 dark:text-gray-100">
+    <div class="min-h-screen">
+        <header>
+            <nav class="bg-white dark:bg-gray-800 shadow-sm fixed w-full top-0 z-50" aria-label="Main navigation">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16">
+                        <div class="flex items-center">
+                            <a href="/" class="flex items-center" aria-label="V2Cloud Home">
+                                <img src="https://dash.v2cloud.com/static/frontend/images/v2.png?v=0.10.43-6" 
+                                     alt="V2Cloud Logo" 
+                                     class="h-8 w-auto"
+                                     width="32"
+                                     height="32">
+                                <span class="ml-3 text-xl font-semibold text-gray-900 dark:text-white">V2Cloud</span>
+                            </a>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div id="theme-toggle" class="flex items-center"></div>
+                        </div>
                     </div>
-                    <div id="theme-toggle" class="flex items-center"></div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </header>
         
-        <main class="flex-1">
-            <div id="app" class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8"></div>
+        <main class="pt-16" role="main">
+            <div id="app" class="container mx-auto px-4 sm:px-6 lg:px-8 py-6"></div>
         </main>
+
+        <footer class="mt-auto py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+            <p>&copy; {% now "Y" %} V2Cloud. All rights reserved.</p>
+        </footer>
     </div>
-    <script src="{% static 'bundle.js' %}"></script>
+    <script src="{% static 'bundle.js' %}" defer></script>
 </body>
 </html>
