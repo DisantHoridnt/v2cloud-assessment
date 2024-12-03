@@ -2,7 +2,12 @@ const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
-    entry: "./frontend/static/js/index.js",
+    entry: {
+        main: [
+            "./frontend/static/css/index.css",  
+            "./frontend/static/js/index.js"
+        ]
+    },
     output: { 
         filename: "bundle.js",
         path: path.resolve("frontend/static"),
@@ -51,4 +56,4 @@ module.exports = {
             "Access-Control-Allow-Origin": "*",
         }
     }
-}
+};
