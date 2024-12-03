@@ -42,6 +42,8 @@ const Controls = ({ onSearch, onFilter, onSort, activeFilter, activeSort }) => {
 const VMCard = ({ vm, onEdit }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedVm, setEditedVm] = useState(vm);
+    const [isSSHKeyModalOpen, setIsSSHKeyModalOpen] = useState(false);
+    const [newSSHKey, setNewSSHKey] = useState('');
 
     const handleSave = async () => {
         try {
@@ -58,6 +60,29 @@ const VMCard = ({ vm, onEdit }) => {
             }
         } catch (error) {
             console.error('Error updating VM:', error);
+        }
+    };
+
+    const handleSSHKeyUpdate = async () => {
+        try {
+            const response = await fetch(`/api/vms/${vm.id}/`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ssh_key: newSSHKey }),
+            });
+            if (response.ok) {
+                setIsSSHKeyModalOpen(false);
+                onEdit();
+                setNewSSHKey('');
+            } else {
+                const errorData = await response.json();
+                alert(`Error updating SSH key: ${errorData.detail || 'Unknown error'}`);
+            }
+        } catch (error) {
+            console.error('Error updating SSH key:', error);
+            alert('Failed to update SSH key');
         }
     };
 
@@ -128,45 +153,44 @@ const VMCard = ({ vm, onEdit }) => {
                 </div>
             </div>
 
-            <div className="border-t border-gray-100 dark:border-gray-700 pt-4">
+            <div className="border-t border-gray-100 dark:border-gray-700 pt-4 flex justify-between items-center">
                 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">SSH Key</span>
-                <div className="mt-1">
-                    {isEditing ? (
-                        <div className="flex items-center space-x-2">
-                            <input
-                                type="text"
-                                value={editedVm.ssh_key || ''}
-                                onChange={(e) => setEditedVm({...editedVm, ssh_key: e.target.value})}
-                                className="flex-1 px-2 py-1 text-xs font-mono border rounded dark:bg-gray-700 dark:text-white"
-                                placeholder="Enter SSH key"
-                            />
-                            <button
-                                onClick={handleSave}
-                                className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                <button 
+                    onClick={() => setIsSSHKeyModalOpen(true)}
+                    className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                >
+                    Update SSH Key
+                </button>
+            </div>
+
+            {isSSHKeyModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-96 shadow-xl">
+                        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Update SSH Key for {vm.name}</h3>
+                        <textarea 
+                            value={newSSHKey}
+                            onChange={(e) => setNewSSHKey(e.target.value)}
+                            placeholder="Enter new SSH key"
+                            className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white mb-4"
+                            rows="4"
+                        />
+                        <div className="flex justify-end space-x-2">
+                            <button 
+                                onClick={() => setIsSSHKeyModalOpen(false)}
+                                className="px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 text-sm"
                             >
-                                Save
+                                Cancel
+                            </button>
+                            <button 
+                                onClick={handleSSHKeyUpdate}
+                                className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                            >
+                                Update
                             </button>
                         </div>
-                    ) : (
-                        vm.ssh_key ? (
-                            <div className="flex items-center space-x-2">
-                                <code className="text-xs bg-gray-50 dark:bg-gray-900 px-2 py-1 rounded font-mono text-gray-600 dark:text-gray-300 flex-1 truncate">
-                                    {vm.ssh_key}
-                                </code>
-                                <button 
-                                    onClick={() => navigator.clipboard.writeText(vm.ssh_key)}
-                                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
-                                    title="Copy SSH Key"
-                                >
-                                    📋
-                                </button>
-                            </div>
-                        ) : (
-                            <span className="text-sm text-gray-400 dark:text-gray-500">No key configured</span>
-                        )
-                    )}
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };
