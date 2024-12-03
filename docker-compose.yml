@@ -11,14 +11,8 @@ services:
     environment:
       - DEBUG=1
       - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,web
-      - DB_NAME=v2cloud
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_HOST=db
-      - DB_PORT=5432
       - WEBPACK_DEV_SERVER=http://webpack:3000
     depends_on:
-      - db
       - webpack
     networks:
       - backend
@@ -45,27 +39,6 @@ services:
     networks:
       - frontend
 
-  db:
-    image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=v2cloud
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5432:5432"
-    networks:
-      - backend
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
 networks:
   backend:
   frontend:
-
-volumes:
-  postgres_data:
