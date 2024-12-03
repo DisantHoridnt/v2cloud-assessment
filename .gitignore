@@ -62,3 +62,5 @@ docker-compose.override.yml
 /static/
 /frontend/dist/
 /frontend/build/
+
+todo.md
