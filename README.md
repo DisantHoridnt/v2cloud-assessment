@@ -42,7 +42,7 @@ Experience the dashboard's features through these demonstration videos:
     - [▶️ Watch Demo #2](https://drive.google.com/file/d/1C1RLCj49lDl9be0soLVdt1C2ZNKqxWlm/preview)
 
 3. Final Video which is a merge between Demo #1 and Demo #2:
-    - [▶️ Watch Demo #3](https://drive.google.com/file/d/1WvUxnowj6lLEjjC6eOJAKITI0iw51T2d/preview)    
+    - [▶️ Watch Complete Demo Video](https://drive.google.com/file/d/1WvUxnowj6lLEjjC6eOJAKITI0iw51T2d/preview)    
 
 ## Technical Stack
 
