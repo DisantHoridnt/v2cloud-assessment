@@ -55,18 +55,22 @@ Experience the dashboard's features through these demonstration videos:
 
 ## Architectural Reasoning
 
-> <strong><mark>I went with a Django and React stack, Django gives us everything we need on the backend - a good ORM, built-in auth, and security, while letting us expose REST APIs through DRF.
+<strong><mark>I went with a Django and React stack, Django gives us everything we need on the backend - a good ORM, built-in auth, and security, while letting us expose REST APIs through DRF.
 On the frontend, React - its component model and hooks make state management straightforward, plus the ecosystem is massive which speeds up development.</mark></strong>
 
-> <strong><mark>I containerized everything with Docker, splitting the Django API (port 8000) and Webpack dev server (3000) into separate containers. This keeps things clean and makes both local development and deployment relatively easy.</mark></strong>
+<strong><mark>I containerized everything with Docker, splitting the Django API (port 8000) and Webpack dev server (3000) into separate containers. This keeps things clean and makes both local development and deployment relatively easy.</mark></strong>
 
-> <strong><mark>For the database, I am using SQLite - I did consider using postgres as you can see in my commit history, it was an overkill. There was no need to overcomplicate things with a separate database server right now. That's why I went with the available sqlite option.</mark></strong>
+<strong><mark>For the database, I am using SQLite - I did consider using postgres as you can see in my commit history, it was an overkill. There was no need to overcomplicate things with a separate database server right now. That's why I went with the available sqlite option.</mark></strong>
 
-> <strong><mark>The API follows REST principles with clear endpoints and standard HTTP methods, while Django's serializers handle all our validation and data transformation needs.
+<strong><mark>The API follows REST principles with clear endpoints and standard HTTP methods, while Django's serializers handle all our validation and data transformation needs.
 The frontend is structured around a main VMGrid component with nested Controls and VMCard components - keeping things modular and maintainable.
 I am using Tailwind CSS which has been great for rapid UI development and keeping our bundle size in check.</mark></strong>
 
-> <strong><mark>For development tooling, Webpack handles all our bundling and hot reloading, while Babel ensures our modern JS/JSX works everywhere. I've also put a strong emphasis on error handling throughout the stack, with proper try-catch blocks and validation on both client and server sides.</mark> </strong>
+<strong><mark>For development tooling, Webpack handles all our bundling and hot reloading, while Babel ensures our modern JS/JSX works everywhere. I've also put a strong emphasis on error handling throughout the stack, with proper try-catch blocks and validation on both client and server sides.</mark> </strong>
+
+> At its core, we've got a clean client-server architecture where our React frontend talks to our Django backend over REST/HTTP using JSON. The data flow is straightforward - when you hit the API, it goes through Django views, gets validated by our serializers, hits the models layer, and then gets stored in SQLite. We've containerized everything using Docker, with Django running on port 8000 and Webpack on 3000, sharing a network that makes local development a breeze.
+> For the UI, we took a component-driven approach centered around the VMGrid as our root container. Think of it as a smart orchestrator that manages two main parts: the Controls section up top and the VMCard list below. The Controls handle all your global interactions - there's a search bar for quick VM filtering, server location filters (montreal/washington/singapore), and sorting options for things like name or resource usage. Each VM is represented by a VMCard component that packs all the essential info in a dense but readable format. We kept the hierarchy shallow and focused on making common operations like searching and filtering feel instant and natural.
+>The whole UI is built to be responsive and efficient - we're using React's state management through hooks to handle all the data and user interactions, while Tailwind CSS gives us the flexibility to make everything look clean and consistent without writing custom CSS. It's a pragmatic approach that prioritizes usability while keeping the codebase maintainable.
 
 ---
 
