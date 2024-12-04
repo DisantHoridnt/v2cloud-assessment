@@ -125,6 +125,3 @@ I am using Tailwind CSS which has been great for rapid UI development and keepin
 
 ## Commit Tree
 ![Commit Tree Visualization](images/commitTree1.png)
-
-## Commit Tree
-![Commit Tree Visualization](images/commitTree1.png)
