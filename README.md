@@ -52,4 +52,4 @@ Experience the dashboard's features through these demonstration videos:
 - **Containerization**: Docker
 
 ## Commit Tree
-![Commit Tree Visualization](images/commitTree.png)
+![Commit Tree Visualization](images/commitTree1.png)
