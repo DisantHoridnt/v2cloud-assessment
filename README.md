@@ -33,8 +33,27 @@ docker-compose up --build
 
 Watch these demo videos to see the dashboard in action:
 
-- [VM Creation and Management Demo](https://drive.google.com/file/d/13FTynGnsIHh9Xae0-B7pfDmMUNolCdm-/preview)
-- [SSH Key Management Demo](https://drive.google.com/file/d/1C1RLCj49lDl9be0soLVdt1C2ZNKqxWlm/preview)
+### VM Creation and Management Demo
+<div align="center">
+  <iframe
+    width="700"
+    height="400"
+    src="https://drive.google.com/file/d/13FTynGnsIHh9Xae0-B7pfDmMUNolCdm-/preview"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+</div>
+
+### SSH Key Management Demo
+<div align="center">
+  <iframe
+    width="700"
+    height="400"
+    src="https://drive.google.com/file/d/1C1RLCj49lDl9be0soLVdt1C2ZNKqxWlm/preview"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+</div>
 
 ## Technical Stack
 
