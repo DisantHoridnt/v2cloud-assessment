@@ -31,29 +31,19 @@ docker-compose up --build
 
 ## Demo Videos
 
-Watch these demo videos to see the dashboard in action:
+Experience the dashboard's features through these demonstration videos:
 
-### VM Creation and Management Demo
-<div align="center">
-  <iframe
-    width="700"
-    height="400"
-    src="https://drive.google.com/file/d/13FTynGnsIHh9Xae0-B7pfDmMUNolCdm-/preview"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
-</div>
+### 🎥 Feature Demonstrations
 
-### SSH Key Management Demo
-<div align="center">
-  <iframe
-    width="700"
-    height="400"
-    src="https://drive.google.com/file/d/1C1RLCj49lDl9be0soLVdt1C2ZNKqxWlm/preview"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
-</div>
+1. **VM Creation and Management** 
+   - See how to create, configure, and manage virtual machines
+   - Watch how to customize VM settings efficiently
+   - [▶️ Watch Demo](https://drive.google.com/file/d/13FTynGnsIHh9Xae0-B7pfDmMUNolCdm-/preview)
+
+2. **SSH Key Management**
+   - Learn how to add and manage SSH keys
+   - See the secure key handling in action
+   - [▶️ Watch Demo](https://drive.google.com/file/d/1C1RLCj49lDl9be0soLVdt1C2ZNKqxWlm/preview)
 
 ## Technical Stack
 
