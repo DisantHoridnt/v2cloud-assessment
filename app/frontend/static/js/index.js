@@ -281,7 +281,7 @@ const VMCard = ({ vm, onEdit }) => {
                                 </button>
                             ) : null}
 
-                            {isEditingSSHKey ? (
+                            {isEditingSSHKey || !vm.ssh_key ? (
                                 <button 
                                     onClick={handleSSHKeyUpdate}
                                     className="px-4 py-2 bg-blue-600 text-white rounded"
