@@ -191,6 +191,25 @@ const VMCard = ({ vm, onEdit }) => {
                     >
                         {isEditing ? '✕' : '✎'}
                     </button>
+                    {isEditing && (
+                        <>
+                            <button
+                                onClick={handleSave}
+                                className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                            >
+                                Save
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setIsEditing(false);
+                                    setEditedVm(vm);
+                                }}
+                                className="px-3 py-1 bg-gray-200 dark:bg-gray-600 rounded hover:bg-gray-300 dark:hover:bg-gray-700"
+                            >
+                                Cancel
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
             
